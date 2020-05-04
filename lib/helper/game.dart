@@ -1,6 +1,5 @@
 import 'package:firedart/firedart.dart';
 import '../engine/data/main.dart';
-import 'dart:convert';
 import '../main.dart';
 
 class Game {
@@ -11,6 +10,13 @@ class Game {
 
   ///The serialized game data.
   static GameData data;
+
+  ///JSON Bot data that gets saved online.
+  ///note: key "meta" is already used
+  static Map<String, dynamic> botData;
+
+  static bool get active => botData["meta"]["active"] ?? true;
+  static String get projectName => botData["meta"]["projectname"] ?? "null";
 
   static bool shouldSave = false;
   static bool verbose = false;
@@ -24,6 +30,8 @@ class Game {
 
 class Helper {
   static int turn;
+  static int currentPlayer;
+
   static update(Document snap) {
     if (snap.map["bot"] ?? true) {
       if (Game.verbose) print("== Dropped Data ==");
@@ -38,21 +46,37 @@ class Helper {
       rethrow;
     }
     Game.data.bot = true;
+    if (snap.map["bots"] != null) {
+      Game.botData = snap.map["bots"][Game.projectName] ?? Game.botData;
+    }
+
+    if (!Game.active) {
+      if (Game.verbose) print("== Dropped Data ==");
+      if (Game.verbose) print("bot was marked inactive");
+      return;
+    }
+
     if (Game.verbose) print("== Received Data ==");
     onUpdate();
-    Map<String, dynamic> json = Game.data.toJson();
 
     if (Game.shouldSave) {
-      Game.shouldSave = false;
-      if (Game.data != null) {
-        Game.data.bot = true;
-        Firestore.instance.document("/games/${Game.gamePin}").update(json);
-      } else {
-        print("Game.data was null? ");
-      }
+      saveGame();
     } else {
       if (Game.verbose)
         print("Didn't save: run Game.save() if you changed the data");
+    }
+  }
+
+  static saveGame() {
+    Map<String, dynamic> json = Game.data.toJson();
+
+    Game.shouldSave = false;
+    if (Game.data != null) {
+      if (json["bots"] == null) json["bots"] = {};
+      json["bots"][Game.projectName] = Game.botData;
+      Firestore.instance.document("/games/${Game.gamePin}").update(json);
+    } else {
+      print("Game.data was null? ");
     }
   }
 
@@ -63,39 +87,15 @@ class Helper {
       turn = Game.data.turn;
       Game.gameBot.onNewTurn();
     }
+    if (currentPlayer == null) currentPlayer = Game.data.currentPlayer;
+    if (currentPlayer != Game.data.currentPlayer &&
+        Game.data.ui.shouldMove == false) {
+      currentPlayer = Game.data.currentPlayer;
+      Game.gameBot.onNextPlayer();
+    }
   }
 
-  static initBot(String inGamePin, bool inVerbose) async {
-    Game.gameBot = GameBot();
-    Game.verbose = inVerbose;
-    if (inGamePin == null) {
-      print("Please enter a GAMEPIN in main.dart");
-      return;
-    }
-    Game.gamePin = inGamePin;
-    try {
-      Firestore.initialize("playplutopoly");
-    } catch (e) {
-      print("ERROR during initialization");
-      rethrow;
-    }
-    try {
-      DocumentReference documentReference =
-          Firestore.instance.document("games/${Game.gamePin}");
-      documentReference.stream.listen(update, onDone: () {
-        print("== Stream ended ==");
-      });
-      try {
-        Document document = await documentReference.get();
-        JsonEncoder encoder = new JsonEncoder.withIndent('  ');
-        String prettyprint = encoder.convert(document.map);
-        if (Game.verbose) print(prettyprint);
-      } catch (e) {
-        if (Game.verbose) print("Couldn't pretty print.");
-      }
-    } catch (e) {
-      print("ERROR during connection: Is your gamepin correct?");
-      rethrow;
-    }
-  }
+  /// Use InitHelper.initBot()
+  @deprecated
+  static initBot() {}
 }
