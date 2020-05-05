@@ -22,14 +22,16 @@ const Map<String, dynamic> meta = {
   //overide the author name with your full name
   "author": null,
   //overide the botName with a full name
-  "name": "Really cool bot",
+  "name": null,
 
   //add a website
-  "website": "https://www.google.com",
+  "website": null,
   //When false drops all received updates.
   //This could be changed in-game
   "active": true,
-  "version": "0.3.0"
+  "version": "0.0.0",
+  //Marks the bot has been initialized
+  "init": true
 };
 
 const bool VERBOSE = true;

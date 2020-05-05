@@ -35,7 +35,7 @@ class GameBot extends GameListener {
   /// These are other events you can listen to.
   /// gets called when the bot initializes
   @override
-  onInit() {}
+  onInit(bool previouslyInitialized) {}
 
   /// low-level, gets called when new data is received.
   @override

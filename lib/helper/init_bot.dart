@@ -11,6 +11,7 @@ class InitHelper {
   static initBot(
       String inGamePin, bool inVerbose, Map<String, dynamic> meta) async {
     Game.gameBot = GameBot();
+    bool previouslyInitialized = false;
 
     meta = checkMetaData(meta);
     if (inGamePin == null) {
@@ -59,12 +60,16 @@ class InitHelper {
             "Couldn't serialize data. Is the json formatted correctly? Are the versions correct?");
         rethrow;
       }
+      try {
+        previouslyInitialized =
+            document.map["bots"][Game.projectName]["meta"]["init"] ?? false;
+      } catch (e) {}
     } catch (e) {
       print("ERROR during connection: Is your gamepin correct?");
       rethrow;
     }
 
-    Game.gameBot.onInit();
+    Game.gameBot.onInit(previouslyInitialized);
     Helper.saveGame();
   }
 

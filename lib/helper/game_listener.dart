@@ -1,6 +1,6 @@
 class GameListener {
   /// gets called when the bot initializes
-  onInit() {}
+  onInit(bool previouslyInitialized) {}
 
   /// gets called when all players have played 1 round.
   onNewTurn() {}
