@@ -24,7 +24,7 @@ You don't have to know everything by hearth to get started. You can always check
 ## Repl.it
 If you know the above, the easiest way to get started is using [repl.it](repl.it).
 Create an account and go to new repl. Select import from github and paste this url: `https://github.com/filoruxonline/plutopoly-bot`
-> If you have a top right screen where you have to select a language and configure the run button. You have to select dart and type as run command\n
+> If you have a top right screen where you have to select a language and configure the run button. You have to select dart and type as run command
 > dart main.dart
 
 You probably have the .packages file open but select the main.dart file and follow the comments there.
@@ -71,7 +71,7 @@ And your done! Bonus: dart gives lists a forEach method so you could also type:
 the '() {}' parameter in the forEach is a anonymous function you pass as an argument. You can't use continue as functions don't have that but functions stop when hitting a return statement so you can use that instead.
 I prefer this method but it is your choice.
 ## Examples
-*comming*
+*coming*
 ## IDE
 If you want to up your game, I would recommend downloading [VS Code](https://code.visualstudio.com/) to use instead of repl.it.
 1. Install [dart](https://dart.dev/tools/sdk/archive). Make sure it has been added to PATH. (You can acces the dart command in the commandline)
