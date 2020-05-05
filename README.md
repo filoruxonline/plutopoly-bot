@@ -4,7 +4,7 @@
 ## Template
 All game data can be changed and listened to via a REST API (from Google FireStore).\
 This is a template that handles all of that for you. It has an easy to use API that is not hard to learn.
-You can start in your brower via [repl.it](#Repl.it).
+You can start in your brower via [repl.it](#replit).
 # Prerequisites
 ## Basic programming
 You need to know variables and data types, functions, ... The basics will do. If you already know a language you have a great headstart.
@@ -27,6 +27,50 @@ Create an account and go to new repl. Select import from github and paste this u
 > If you have a top right screen where you have to select a language and configure the run button. You have to select dart and type as run command\n
 > dart main.dart
 
-You probably have the .packages file open but select the main.dart file and follow the comments.
+You probably have the .packages file open but select the main.dart file and follow the comments there.
+## Walkthrough
+*coming*
+## API Documentation
+You can find the documentation for the api [here](https://filoruxonline.github.io/plutopoly-bot-doc).
+The first main has the [GameData](https://filoruxonline.github.io/plutopoly-bot-doc/engine_data_main/GameData-class.html) class. This is the type of Game.data.
+
+Let's say you want to change the price to build a house so you look in the [GameData](https://filoruxonline.github.io/plutopoly-bot-doc/engine_data_main/GameData-class.html) class.
+There you find a property called gmap (stands for game map), you want to change the map so you click on it.
+*more documentation is coming but you need to use your intuition*
+You see that it is a List of type Tile, so you click on Tile to get more information about the class.
+You see a property called housePrice. This you can change so you like so:
+```
+  //in data in map change the fourth tile's houseprice to 200
+  Game.data.gmap[3].housePrice = 200;
+```
+Repl doesn't have code-intelligence for dart so you have to make sure you typed everything exactly the same!
+If you want to raise all house prices by 10% you do:
+```
+  for(Tile property in Game.data.gmap) {
+    //same as: housePrice = housePrice * 1.1
+    property.housePrice *= 1.1;
+  }
+```
+But you will get an Exception!
+This is because not all tiles have a housePrice, like the prison tile. Dart doesn't know what null \*1.1 is so it throws an Exception.
+You have to check that housePrice != null befor changing it like so:
+```
+  for(Tile property in Game.data.gmap) {
+    // after continue it will stop execution and go to the next property
+    if(property.housePrice==null) continue;
+    property.housePrice *= 1.1;
+  }
+```
+And your done! Bonus: dart gives lists a forEach method so you could also type:
+```
+  Game.data.gmap.forEach((Tile property) {
+    if(property.housePrice==null) return;
+    property.housePrice *= 1.1;
+  });
+```
+the '() {}' parameter in the forEach is a anonymous function you pass as an argument. You can't use continue as functions don't have that but functions stop when hitting a return statement so you can use that instead.
+I prefer this method but it is your choice.
+## Examples
+## IDE
 
 
