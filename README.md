@@ -71,6 +71,14 @@ And your done! Bonus: dart gives lists a forEach method so you could also type:
 the '() {}' parameter in the forEach is a anonymous function you pass as an argument. You can't use continue as functions don't have that but functions stop when hitting a return statement so you can use that instead.
 I prefer this method but it is your choice.
 ## Examples
+*comming*
 ## IDE
+If you want to up your game, I would recommend downloading [VS Code](https://code.visualstudio.com/) to use instead of repl.it.
+1. Install [dart](https://dart.dev/tools/sdk/archive). Make sure it has been added to PATH. (You can acces the dart command in the commandline)
+2. Install [VS Code](https://code.visualstudio.com/)
+3. Add the dart extension (just search in extensions dart)
+4. Download this project as a zip and extract it in a folder. Open this folder in VS Code
+5. To run the program open the commandline (by dragging up) and type: dart main.dart
 
+VS code is just my preference, there are many others you could use.
 
