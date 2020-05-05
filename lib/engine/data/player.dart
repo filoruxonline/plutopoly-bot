@@ -38,6 +38,7 @@ class Player {
 
   factory Player.fromJson(Map<String, dynamic> json) => _$PlayerFromJson(json);
   Map<String, dynamic> toJson() => _$PlayerToJson(this);
+  int get index => Game.data.players.indexOf(this);
 
   int get trainstations {
     int _trainsTations = 0;
