@@ -20,12 +20,18 @@ class GameBot extends GameListener {
     Game.data.gmap.forEach((Tile tile) {
       raisePrice(tile);
     });
+    print("Raised price");
     // run Game.save() if you have changed data.
     Game.save();
   }
 
   // you can define your own functions:
   raisePrice(Tile tile) {
+    
+    //Not all tiles have prices (e.g. prison). You have to check
+    //for null errors.
+    if(tile.price == null) return;
+    
     // vars in functions get resetted everytime they get called
     int previousPrice = tile.price;
 
