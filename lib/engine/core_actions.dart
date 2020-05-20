@@ -1,6 +1,6 @@
 import '../helper/game.dart';
 
-import 'data/main.dart';
+import 'data/main_data.dart';
 import 'data/map.dart';
 import 'data/player.dart';
 

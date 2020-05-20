@@ -13,6 +13,9 @@ Player _$PlayerFromJson(Map<String, dynamic> json) {
     position: json['position'] as int,
     name: json['name'] as String,
     code: json['code'] as int,
+    ai: json['ai'] == null
+        ? null
+        : AI.fromJson(json['ai'] as Map<String, dynamic>),
   )
     ..properties = (json['properties'] as List)?.map((e) => e as int)?.toList()
     ..jailed = json['jailed'] as bool
@@ -56,4 +59,5 @@ Map<String, dynamic> _$PlayerToJson(Player instance) => <String, dynamic>{
       'debt': instance.debt,
       'loans': instance.loans?.map((e) => e?.toJson())?.toList(),
       'stock': instance.stock,
+      'ai': instance.ai?.toJson(),
     };

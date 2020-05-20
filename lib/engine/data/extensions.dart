@@ -1,9 +1,8 @@
 enum Extension {
   bank,
+  transportation,
 
-  bank2,
-
-  jurisdiction,
-
-  stock
+  legislation,
+  stock,
+  drainTheLake
 }

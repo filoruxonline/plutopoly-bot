@@ -1,43 +1,40 @@
-import 'engine/data/map.dart';
-import 'helper/game.dart';
-import 'helper/game_listener.dart';
+import 'package:PlutopolyExtension/helper/init_bot.dart';
 
-/// This is the main class where you can build your bot
-/// documentation:
-/// https://filoruxonline.github.io/plutopoly-bot-doc/index.html
-/// the data object
-/// https://filoruxonline.github.io/plutopoly-bot-doc/engine_data_main/GameData-class.html
+//Enter a game pin here (replace null)
+const String GAMEPIN = null;
+//Enter a unique project name as author:botName
+const String PROJECTNAME = "filorux.ex";
 
-class GameBot extends GameListener {
-  // variables here are persisted (As long as the program keeps running)
-  double raiseFactor = 1.05;
+//If false it will not listen to any updates
+//the bot will finish after the onInit() call
+const bool GAMELISTENER = true;
 
-  /// onNewTurn gets called when all players have played 1 round.
-  @override
-  onNewTurn() {
-    // This is an example project:
-    // every turn all the tile prices raise by 5%.
-    Game.data.gmap.forEach((Tile tile) {
-      raisePrice(tile);
-    });
-    // run Game.save() if you have changed data.
-    Game.save();
-  }
+//Go to lib/game_bot.dart to start building your Bot.
 
-  // you can define your own functions:
-  raisePrice(Tile tile) {
-    // vars in functions get resetted everytime they get called
-    int previousPrice = tile.price;
+//OPTIONAL: extra metadata
+const Map<String, dynamic> meta = {
+  "projectname": PROJECTNAME,
+  //Description, use \n for newline.
+  "description":
+      "A plutopoly bot\nThis is a very cool bot that brings the game to a totally new level.",
+  "listen": GAMELISTENER,
 
-    tile.price = (previousPrice * 1.05).floor();
-  }
+  //overide the author name with your full name
+  "author": null,
+  //overide the botName with a full name
+  "name": null,
 
-  /// These are other events you can listen to.
-  /// gets called when the bot initializes
-  @override
-  onInit(bool previouslyInitialized) {}
+  //add a website
+  "website": null,
+  //When false drops all received updates.
+  //This could be changed in-game
+  "active": true,
+  "version": "0.0.0",
+  //Marks the bot has been initialized
+  "init": true
+};
 
-  /// low-level, gets called when new data is received.
-  @override
-  onUpdate() {}
+const bool VERBOSE = true;
+void main() {
+  InitHelper.initBot(GAMEPIN, VERBOSE, meta);
 }

@@ -1,9 +1,13 @@
 import 'package:firedart/firedart.dart';
-import '../engine/data/main.dart';
-import '../main.dart';
+import 'package:logger/logger.dart';
+
+import '../engine/data/main_data.dart';
+import '../game_bot.dart';
 
 class Game {
   static GameBot gameBot;
+
+  static Logger logger = Logger(printer: PrettyPrinter(lineLength: 50));
 
   ///The game pin. Please define in main.dart .
   static String gamePin;
@@ -34,15 +38,15 @@ class Helper {
 
   static update(Document snap) {
     if (snap.map["bot"] ?? true) {
-      if (Game.verbose) print("== Dropped Data ==");
-      if (Game.verbose) print("bot field was true");
+      if (Game.verbose)
+        Game.logger.v(["== Dropped Data ==", "bot field was true"]);
       return;
     }
 
     try {
       Game.data = GameData.fromJson(snap.map);
     } catch (e) {
-      print("Couldn't serialize data. Are the versions correct?");
+      Game.logger.e("Couldn't serialize data. Are the versions correct?");
       rethrow;
     }
     Game.data.bot = true;
@@ -51,19 +55,19 @@ class Helper {
     }
 
     if (!Game.active) {
-      if (Game.verbose) print("== Dropped Data ==");
-      if (Game.verbose) print("bot was marked inactive");
+      if (Game.verbose)
+        Game.logger.v(["== Dropped Data ==", "bot was marked inactive"]);
       return;
     }
 
-    if (Game.verbose) print("== Received Data ==");
+    if (Game.verbose) Game.logger.v("== Received Data ==");
     onUpdate();
 
     if (Game.shouldSave) {
       saveGame();
     } else {
       if (Game.verbose)
-        print("Didn't save: run Game.save() if you changed the data");
+        Game.logger.i("Didn't save: run Game.save() if you changed the data");
     }
   }
 
@@ -76,7 +80,7 @@ class Helper {
       json["bots"][Game.projectName] = Game.botData;
       Firestore.instance.document("/games/${Game.gamePin}").update(json);
     } else {
-      print("Game.data was null? ");
+      Game.logger.wtf("Game.data was null? ");
     }
   }
 

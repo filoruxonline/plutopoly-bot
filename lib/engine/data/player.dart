@@ -1,17 +1,21 @@
+import '../../helper/game.dart';
+import '../ai/ai.dart';
 import '../extensions/bank/data/loan.dart';
 import 'info.dart';
 import 'map.dart';
-import '../../helper/game.dart';
+
 part 'player.g.dart';
 
 class Player {
-  String name;
+  String name = "null";
 
-  double money;
+  double money = 0;
 
-  int position;
+  int position = 0;
 
-  int color;
+  int get id => Game.data.players.indexWhere((Player p) => p.name == name);
+
+  int color = 0;
 
   List<int> properties = [];
 
@@ -32,20 +36,34 @@ class Player {
 
   double debt = 0;
 
-  List<dynamic> loans = [];
+  List<Contract> loans = [];
 
   Map<String, int> stock = {};
 
+  AI ai;
+
   factory Player.fromJson(Map<String, dynamic> json) => _$PlayerFromJson(json);
   Map<String, dynamic> toJson() => _$PlayerToJson(this);
-  int get index => Game.data.players.indexOf(this);
 
+  Tile get positionTile => Game.data.gmap[position];
+  int get index => Game.data.players.indexOf(this);
   int get trainstations {
     int _trainsTations = 0;
     properties.forEach((int i) {
       Tile tile = Game.data.gmap[i];
       if (tile.type == TileType.trainstation) {
         _trainsTations++;
+      }
+    });
+    return _trainsTations;
+  }
+
+  List<Tile> get transtationTiles {
+    List<Tile> _trainsTations = [];
+    properties.forEach((int i) {
+      Tile tile = Game.data.gmap[i];
+      if (tile.type == TileType.trainstation) {
+        _trainsTations.add(tile);
       }
     });
     return _trainsTations;
@@ -61,14 +79,32 @@ class Player {
   }
 
   bool hasAll(String idPrefix) {
-    bool hasAll = true;
+    return missing(idPrefix) == 0;
+  }
+
+  bool hasAllUnmortaged(String idPrefix) {
+    bool has = true;
     Game.data.gmap.asMap().forEach((int i, Tile tile) {
-      if (tile.idPrefix == idPrefix && !properties.contains(i)) {
-        hasAll = false;
-        return;
+      if (tile.idPrefix == idPrefix) {
+        if (!properties.contains(i)) {
+          has = false;
+          return;
+        } else {
+          if (tile.mortaged) has = false;
+        }
       }
     });
-    return hasAll;
+    return has;
+  }
+
+  int missing(String idPrefix) {
+    int mis = 0;
+    Game.data.gmap.asMap().forEach((int i, Tile tile) {
+      if (tile.idPrefix == idPrefix && !properties.contains(i)) {
+        mis++;
+      }
+    });
+    return mis;
   }
 
   Player({
@@ -77,10 +113,16 @@ class Player {
     this.position: 0,
     this.name,
     this.code,
+    this.ai,
   }) {
     if (name == null) {
-      name = "Player";
+      name = "Player $id";
     }
     moneyHistory.add(money);
+  }
+
+  @override
+  String toString() {
+    return 'Player(name: $name, money: $money, position: $position, color: $color, properties: $properties, jailed: $jailed, jailTries: $jailTries, goojCards: $goojCards, moneyHistory: $moneyHistory, code: $code, debt: $debt, loans: $loans, ai: $ai)';
   }
 }

@@ -25,13 +25,16 @@ Tile _$TileFromJson(Map<String, dynamic> json) {
     color: json['color'] as int,
     idPrefix: json['idPrefix'] as String,
     name: json['name'] as String,
+    description: json['description'] as String ?? 'No info',
     price: json['price'] as int,
     housePrice: json['housePrice'] as int,
     rent: (json['rent'] as List)?.map((e) => e as int)?.toList(),
     hyp: json['hyp'] as int,
     mortaged: json['mortaged'] as bool,
     idIndex: json['idIndex'] as int,
-  )..level = json['level'] as int;
+  )
+    ..level = json['level'] as int
+    ..transportationPrice = json['transportationPrice'] as int;
 }
 
 Map<String, dynamic> _$TileToJson(Tile instance) => <String, dynamic>{
@@ -46,6 +49,8 @@ Map<String, dynamic> _$TileToJson(Tile instance) => <String, dynamic>{
       'level': instance.level,
       'idIndex': instance.idIndex,
       'mortaged': instance.mortaged,
+      'description': instance.description,
+      'transportationPrice': instance.transportationPrice,
     };
 
 T _$enumDecode<T>(

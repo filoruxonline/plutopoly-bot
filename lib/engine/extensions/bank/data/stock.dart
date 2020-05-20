@@ -1,3 +1,5 @@
+import '../../../../helper/game.dart';
+
 part 'stock.g.dart';
 
 class Stock {
@@ -11,7 +13,12 @@ class Stock {
 
   Map<int, double> valueHistory = {0: 100};
 
-  Stock({this.id, this.value, this.volume, this.info: ""});
+  Stock({
+    this.id,
+    this.value,
+    this.volume,
+    this.info: "",
+  }) : valueHistory = {Game.data?.turn ?? 0: value};
 
   Stock.world() {
     id = "WORLD_STOCK";

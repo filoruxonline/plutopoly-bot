@@ -15,6 +15,10 @@ class Settings {
 
   bool hackerScreen = false;
 
+  int interest = 10;
+
+  int dtlPrice = 1000;
+
   Settings();
 
   factory Settings.fromJson(Map<String, dynamic> json) =>

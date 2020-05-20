@@ -14,7 +14,8 @@ Settings _$SettingsFromJson(Map<String, dynamic> json) {
     ..maxTurnes = json['maxTurnes'] as int
     ..mustAuction = json['mustAuction'] as bool
     ..startingMoney = json['startingMoney'] as int
-    ..hackerScreen = json['hackerScreen'] as bool;
+    ..hackerScreen = json['hackerScreen'] as bool
+    ..interest = json['interest'] as int ?? 10;
 }
 
 Map<String, dynamic> _$SettingsToJson(Settings instance) => <String, dynamic>{
@@ -25,4 +26,5 @@ Map<String, dynamic> _$SettingsToJson(Settings instance) => <String, dynamic>{
       'mustAuction': instance.mustAuction,
       'startingMoney': instance.startingMoney,
       'hackerScreen': instance.hackerScreen,
+      'interest': instance.interest,
     };

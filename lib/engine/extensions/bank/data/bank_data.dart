@@ -6,9 +6,13 @@ part 'bank_data.g.dart';
 
 class BankData {
   int expendature = 0;
+
   List<int> expandatureList = [500];
+
   int bullPoints = 0;
+
   int volatility = 5;
+
   Stock worldStock = Stock.world();
 
   BankData() {

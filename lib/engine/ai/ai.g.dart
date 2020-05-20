@@ -1,21 +1,19 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'ui_actions.dart';
+part of 'ai.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-UIActionsData _$UIActionsDataFromJson(Map<String, dynamic> json) {
-  return UIActionsData()
-    ..screenState = _$enumDecodeNullable(_$ScreenEnumMap, json['screenState'])
-    ..showDealScreen = json['showDealScreen'] as bool;
+AI _$AIFromJson(Map<String, dynamic> json) {
+  return AI(
+    _$enumDecodeNullable(_$AITypeEnumMap, json['type']),
+  );
 }
 
-Map<String, dynamic> _$UIActionsDataToJson(UIActionsData instance) =>
-    <String, dynamic>{
-      'screenState': _$ScreenEnumMap[instance.screenState],
-      'showDealScreen': instance.showDealScreen,
+Map<String, dynamic> _$AIToJson(AI instance) => <String, dynamic>{
+      'type': _$AITypeEnumMap[instance.type],
     };
 
 T _$enumDecode<T>(
@@ -50,8 +48,7 @@ T _$enumDecodeNullable<T>(
   return _$enumDecode<T>(enumValues, source, unknownValue: unknownValue);
 }
 
-const _$ScreenEnumMap = {
-  Screen.idle: 'idle',
-  Screen.move: 'move',
-  Screen.active: 'active',
+const _$AITypeEnumMap = {
+  AIType.player: 'player',
+  AIType.normal: 'normal',
 };
