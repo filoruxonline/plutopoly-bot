@@ -25,18 +25,18 @@ You don't have to know everything by hearth to get started. You can always check
 If you know the above, the easiest way to get started is using [repl.it](repl.it).
 Create an account and go to new repl. Select import from github and paste this url: `https://github.com/filoruxonline/plutopoly-bot`
 > If you have a top right screen where you have to select a language and configure the run button. You have to select dart and type as run command
-> dart main.dart
+> dart lib/main.dart
 
-You probably have the .packages file open but select the main.dart file and follow the comments there.
+Select the lib/main.dart file and follow the comments there.
 ## Walkthrough
 *coming*
 ## API Documentation
 You can find the documentation for the api [here](https://filoruxonline.github.io/plutopoly-bot-doc).
-The first main has the [GameData](https://filoruxonline.github.io/plutopoly-bot-doc/engine_data_main/GameData-class.html) class. This is the type of Game.data.
+main_data has the [GameData](https://filoruxonline.github.io/plutopoly-bot-doc/engine_data_main/GameData-class.html) class. This is the type of Game.data.
 
 Let's say you want to change the price to build a house so you look in the [GameData](https://filoruxonline.github.io/plutopoly-bot-doc/engine_data_main/GameData-class.html) class.
 There you find a property called gmap (stands for game map), you want to change the map so you click on it.
-*more documentation is coming but you need to use your intuition*
+*more documentation is coming*
 You see that it is a List of type Tile, so you click on Tile to get more information about the class.
 You see a property called housePrice. This you can change so you like so:
 ```
