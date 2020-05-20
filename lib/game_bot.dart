@@ -2,10 +2,6 @@ import 'engine/data/map.dart';
 import 'helper/game.dart';
 import 'helper/game_listener.dart';
 
-void main() {
-  Game.logger.d("test");
-}
-
 /// This is the main class where you can build your bot
 /// documentation:
 /// https://filoruxonline.github.io/plutopoly-bot-doc/index.html
