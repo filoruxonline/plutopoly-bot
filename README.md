@@ -29,7 +29,38 @@ Create an account and go to new repl. Select import from github and paste this u
 
 Select the lib/main.dart file and follow the comments there.
 ## Walkthrough
-*coming*
+**lib/**\
+Libraries: you should add all your code here. This file also contains the template files.\
+**lib/main.dart**\
+This is the starting point of the program. You can set all the meta data here.\
+**lib/game_bot.dart**\
+Build your bot here. If your project is becoming bigger, I would highly recommend splitting this in multiple files.
+**lib/helper/**\
+Contains helpers. You shouldn't need to change these.\
+**lib/helper/color(s).dart**\
+Contains all material colors. See [colors](https://github.com/filoruxonline/plutopoly-bot#colors).
+**lib/helper/game_listener.dart**\
+Abstrat parent class of the game bot.\
+**lib/helper/game.dart**\
+The main  class with all the main static methods.
+**lib/engine/**
+Contains the data model with serialization and some helper methods.
+## Colors
+This template contains material color helpers from the Flutter sdk. Colors are saved on the database as integers. If you want to get a color you can use:\
+`Colors.blue.value`\
+You can replace blue with any material color but if you save it online **you have to use .value**. Example:\
+```
+Tile(TileType.land,
+      color: Colors.brown.value,
+      idPrefix: "Br",
+      idIndex: 1,
+      name: "Brown 1",
+      price: 60,
+      housePrice: 50,
+      rent: [2, 10, 30, 90, 160, 250],
+      hyp: 30),
+```
+
 ## API Documentation
 You can find the documentation for the api [here](https://filoruxonline.github.io/plutopoly-bot-doc).
 main_data has the [GameData](https://filoruxonline.github.io/plutopoly-bot-doc/engine_data_main/GameData-class.html) class. This is the type of Game.data.
@@ -72,6 +103,7 @@ the '() {}' parameter in the forEach is a anonymous function you pass as an argu
 I prefer this method but it is your choice.
 ## Examples
 *coming*
+
 ## IDE
 If you want to up your game, I would recommend downloading [VS Code](https://code.visualstudio.com/) to use instead of repl.it.
 1. Install [dart](https://dart.dev/tools/sdk/archive). Make sure it has been added to PATH. (You can acces the dart command in the commandline)
